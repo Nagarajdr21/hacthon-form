@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hackathon Registration</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7fa;
+      text-align: center;
+      padding: 40px;
+    }
+
+    /* Animated Heading */
+    h2 {
+      font-size: 40px;
+      font-weight: bold;
+      color: #007BFF;
+      animation: glow 2s infinite alternate, slideIn 1.5s ease-out;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px #007BFF, 0 0 20px #00c3ff, 0 0 30px #00e5ff;
+      }
+      to {
+        text-shadow: 0 0 20px #0044cc, 0 0 40px #00c3ff, 0 0 60px #00f7ff;
+      }
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    form {
+      background: white;
+      padding: 25px;
+      max-width: 400px;
+      margin: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: left;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 10px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      margin-top: 15px;
+      width: 100%;
+      padding: 10px;
+      background: #007BFF;
+      color: white;
+      border: none;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    #msg {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h2>🚀 Hackathon 2025 🚀</h2>
+
+  <form id="regForm">
+    <label>Name:</label>
+    <input type="text" name="name" required>
+
+    <label>Email:</label>
+    <input type="email" name="email" required>
+
+    <label>Phone:</label>
+    <input type="text" name="phone" required>
+
+    <label>College:</label>
+    <input type="text" name="college" required>
+
+    <label>Team Name:</label>
+    <input type="text" name="team" required>
+
+    <button type="submit">Register</button>
+  </form>
+
+  <p id="msg"></p>
+
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbwnfLYj9I77MRPeGiJFTjTv2-s8YMZ7L0OilYCUyXyk8wiS-Wt5N7dyAZVYd9du0Sx0/exec"; // Replace with your Google Apps Script Web App URL
+
+    document.getElementById("regForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const data = {};
+      formData.forEach((value, key) => data[key] = value);
+
+      fetch(scriptURL, {
+        method: "POST",
+        body: JSON.stringify(data)
+      })
+      .then(res => res.text())
+      .then(msg => document.getElementById("msg").innerText = "✅ Registered Successfully!")
+      .catch(err => document.getElementById("msg").innerText = "❌ Error: " + err);
+    });
+  </script>
+</body>
+</html>
